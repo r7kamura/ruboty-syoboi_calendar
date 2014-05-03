@@ -1,5 +1,6 @@
 require "active_support/core_ext/enumerable"
 require "active_support/core_ext/numeric/time"
+require "active_support/core_ext/date"
 require "active_support/core_ext/time"
 
 module Ellen
@@ -100,12 +101,21 @@ module Ellen
         ENV["SYOBOI_CALENDAR_CHANNEL_IDS"]
       end
 
-      def played_from
-        Time.now
+      def now
+        @now ||= Time.now
       end
 
+      def played_from
+        now
+      end
+
+      # 04:00 ~ 28:00
       def played_to
-        Time.now.end_of_day
+        if now.hour >= 4
+          now.tomorrow.beginning_of_day + 4.hour
+        else
+          now.beginning_of_day + 4.hour
+        end
       end
     end
   end
