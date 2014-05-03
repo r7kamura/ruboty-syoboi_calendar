@@ -14,7 +14,7 @@ module Ellen
 
       def descriptions
         programs_sorted_by_started_at.map do |program|
-          "#{program[:started_at].strftime("%Y-%m-%d %H:%M")} #{titles_by_id[program[:title_id]][:title]} #{program[:count]}"
+          "#{program.started_at_in_string} #{titles_by_id[program.title_id][:title]} #{program.count}"
         end
       end
 
@@ -50,26 +50,24 @@ module Ellen
 
       def title_ids_in_programs
         programs.map do |program|
-          program[:title_id]
+          program.title_id
         end
       end
 
       def programs_sorted_by_started_at
-        programs.sort_by do |program|
-          program[:started_at]
-        end
+        programs.sort_by(&:started_at)
       end
 
       def programs
         @programs ||= [get_programs.ProgLookupResponse.ProgItems.ProgItem].flatten.map do |program|
-          {
+          Ellen::SyoboiCalendar::Program.new(
             count: program.Count,
             channel_id: program.ChID,
             sub_title: program.STSubTitle,
             title_id: program.TID,
-            started_at: Time.parse(program.StTime),
-            finished_at: Time.parse(program.EdTime),
-          }
+            started_at: program.StTime,
+            finished_at: program.EdTime,
+          )
         end
       end
 
