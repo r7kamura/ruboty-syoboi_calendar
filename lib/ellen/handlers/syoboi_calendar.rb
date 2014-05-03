@@ -27,12 +27,6 @@ module Ellen
         end
       end
 
-      def descriptions
-        @descriptions ||= programs_sorted_by_started_at.map do |program|
-          "#{program.started_at_in_string} #{titles_index_by_id[program.title_id].title} #{program.count}"
-        end
-      end
-
       def programs
         @programs ||= ::SyoboiCalendar::Client.new.programs(program_options)
       end
