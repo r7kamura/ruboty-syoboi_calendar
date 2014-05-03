@@ -14,7 +14,7 @@ module Ellen
 
       def descriptions
         programs_sorted_by_started_at.map do |program|
-          "#{program.started_at_in_string} #{titles_by_id[program.title_id][:title]} #{program.count}"
+          "#{program.started_at_in_string} #{titles_by_id[program.title_id].title} #{program.count}"
         end
       end
 
@@ -24,17 +24,17 @@ module Ellen
 
       def titles_by_id
         @titles_by_id ||= titles.inject({}) do |table, title|
-          table.merge(title[:id] => title)
+          table.merge(title.id => title)
         end
       end
 
       def titles
         [get_titles.TitleLookupResponse.TitleItems.TitleItem].flatten.map do |title|
-          {
+          Ellen::SyoboiCalendar::Title.new(
             id: title.id,
             title: title.Title,
             short_title: title.ShortTitle,
-          }
+          )
         end
       end
 
