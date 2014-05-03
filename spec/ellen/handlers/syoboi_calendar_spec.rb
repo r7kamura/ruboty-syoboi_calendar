@@ -78,11 +78,18 @@ describe Ellen::Handlers::SyoboiCalendar do
 
   let(:app) do
     ->(env) do
-      if env["QUERY_STRING"] =~ /ProgLookup/
-        [200, { "Content-type" => "application/xml" }, [dummy_programs_response]]
-      else
-        [200, { "Content-type" => "application/xml" }, [dummy_titles_response]]
-      end
+      [
+        200,
+        { "Content-type" => "application/xml" },
+        [
+          case env["QUERY_STRING"]
+          when /ProgLookup/
+            dummy_programs_response
+          else
+            dummy_titles_response
+          end,
+        ],
+      ]
     end
   end
 
@@ -100,7 +107,7 @@ describe Ellen::Handlers::SyoboiCalendar do
     end
 
     it "replies today's anime list" do
-      Ellen.logger.should_receive(:info).with("2000-01-01 00:00 DummyTitle 1")
+      Ellen.logger.should_receive(:info).with("2000-01-01 00:00 DummyTitle #1")
       robot.receive(message)
     end
   end

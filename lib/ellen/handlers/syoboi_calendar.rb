@@ -21,7 +21,8 @@ module Ellen
           "No programs found"
         else
           programs.sort_by(&:started_at).map do |program|
-            %<#{program.started_at.strftime("%Y-%m-%d %H:%M")} #{program.title.name} #{program.count}>
+            count = " ##{program.count}" if program.count
+            %<#{program.started_at.strftime("%Y-%m-%d %H:%M")} #{program.title.name}#{count}>
           end.join("\n")
         end
       end
