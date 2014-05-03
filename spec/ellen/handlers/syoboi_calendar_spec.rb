@@ -14,4 +14,19 @@ describe Ellen::Handlers::SyoboiCalendar do
       instance.should be_true
     end
   end
+
+  describe "#list" do
+    let(:message) do
+      {
+        body: "@ellen list anime",
+        from: "test",
+        to: "ellen",
+      }
+    end
+
+    it "responds to '@ellen list anime'" do
+      Ellen.logger.should_receive(:info).with("Not yet implemented")
+      robot.receive(message)
+    end
+  end
 end
