@@ -18,4 +18,4 @@ SYOBOI_CALENDAR_CHANNEL_IDS - Comma-separated channel IDs to filter programs
 ```
 
 ## Screenshot
-![](https://raw.githubusercontent.com/r7kamura/ellen-syoboi_calendar/master/images/screenshot.gif)
+![](https://raw.githubusercontent.com/r7kamura/ellen-syoboi_calendar/master/images/screenshot.png)
