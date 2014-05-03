@@ -17,10 +17,12 @@ module Ellen
       private
 
       def description
-        if descriptions.empty?
+        if programs.empty?
           "No programs found"
         else
-          descriptions.join("\n")
+          programs.sort_by(&:started_at).map do |program|
+            %<#{program.started_at.strftime("%Y-%m-%d %H:%M")} #{program.title.name} #{program.count}>
+          end.join("\n")
         end
       end
 
@@ -30,63 +32,8 @@ module Ellen
         end
       end
 
-      def client
-        @client ||= ::SyoboiCalendar::Client.new
-      end
-
-      def titles_index_by_id
-        @titles_by_id ||= titles.index_by(&:id)
-      end
-
-      def titles
-        [get_titles.TitleLookupResponse.TitleItems.TitleItem].flatten.map do |title|
-          Ellen::SyoboiCalendar::Title.new(
-            id: title.id,
-            title: title.Title,
-            short_title: title.ShortTitle,
-          )
-        end
-      end
-
-      def get_titles
-        client.titles(title_options)
-      end
-
-      def title_options
-        {
-          title_id: title_ids_in_programs.join(",")
-        }
-      end
-
-      def title_ids_in_programs
-        programs.map do |program|
-          program.title_id
-        end
-      end
-
-      def programs_sorted_by_started_at
-        programs.sort_by(&:started_at)
-      end
-
       def programs
-        @programs ||= get_programs.map do |program|
-          Ellen::SyoboiCalendar::Program.new(
-            count: program.Count,
-            channel_id: program.ChID,
-            sub_title: program.STSubTitle,
-            title_id: program.TID,
-            started_at: program.StTime,
-            finished_at: program.EdTime,
-          )
-        end
-      end
-
-      def get_programs
-        if items = client.programs(program_options).ProgLookupResponse.ProgItems
-          [items.ProgItem].flatten.compact
-        else
-          []
-        end
+        @programs ||= ::SyoboiCalendar::Client.new.programs(program_options)
       end
 
       def program_options
@@ -94,6 +41,7 @@ module Ellen
           played_from: played_from,
           played_to: played_to,
           channel_id: channel_ids,
+          includes: [:channel, :title],
         }.reject {|key, value| value.nil? }
       end
 
