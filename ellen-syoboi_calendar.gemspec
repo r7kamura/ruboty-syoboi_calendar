@@ -7,9 +7,8 @@ Gem::Specification.new do |spec|
   spec.version       = Ellen::SyoboiCalendar::VERSION
   spec.authors       = ["Ryo Nakamura"]
   spec.email         = ["r7kamura@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = "Ask today's Japanese anime line-up from cal.syoboi.jp."
+  spec.homepage      = "https://github.com/r7kamura/ellen-syoboi_calendar"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
