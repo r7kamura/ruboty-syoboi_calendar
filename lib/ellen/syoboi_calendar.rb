@@ -1,2 +1,3 @@
-require "ellen/handlers/syoboi_calenar"
+require "ellen"
+require "ellen/handlers/syoboi_calendar"
 require "ellen/syoboi_calendar/version"
