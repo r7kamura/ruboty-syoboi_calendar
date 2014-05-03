@@ -11,3 +11,6 @@ gem "ellen-syoboi_calendar"
 ```
 @ellen list anime
 ```
+
+## Screenshot
+![](https://raw.githubusercontent.com/r7kamura/ellen-syoboi_calendar/master/images/screenshot.gif)
