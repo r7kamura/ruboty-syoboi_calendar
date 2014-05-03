@@ -1,3 +1,4 @@
+require "active_support/core_ext/enumerable"
 require "active_support/core_ext/numeric/time"
 require "active_support/core_ext/time"
 
@@ -14,7 +15,7 @@ module Ellen
 
       def descriptions
         programs_sorted_by_started_at.map do |program|
-          "#{program.started_at_in_string} #{titles_by_id[program.title_id].title} #{program.count}"
+          "#{program.started_at_in_string} #{titles_index_by_id[program.title_id].title} #{program.count}"
         end
       end
 
@@ -22,10 +23,8 @@ module Ellen
         @client ||= ::SyoboiCalendar::Client.new
       end
 
-      def titles_by_id
-        @titles_by_id ||= titles.inject({}) do |table, title|
-          table.merge(title.id => title)
-        end
+      def titles_index_by_id
+        @titles_by_id ||= titles.index_by(&:id)
       end
 
       def titles
