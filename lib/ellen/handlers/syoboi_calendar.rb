@@ -7,14 +7,24 @@ module Ellen
     class SyoboiCalendar < Base
       on(/list anime\z/, name: "list", description: "List today's anime")
 
+      env :SYOBOI_CALENDAR_CHANNEL_IDS, "Comma-separated channel IDs to filter programs", optional: true
+
       def list(message)
-        message.reply(descriptions.join("\n"))
+        message.reply(description)
       end
 
       private
 
+      def description
+        if descriptions.empty?
+          "No programs found"
+        else
+          descriptions.join("\n")
+        end
+      end
+
       def descriptions
-        programs_sorted_by_started_at.map do |program|
+        @descriptions ||= programs_sorted_by_started_at.map do |program|
           "#{program.started_at_in_string} #{titles_index_by_id[program.title_id].title} #{program.count}"
         end
       end
@@ -58,7 +68,7 @@ module Ellen
       end
 
       def programs
-        @programs ||= [get_programs.ProgLookupResponse.ProgItems.ProgItem].flatten.map do |program|
+        @programs ||= get_programs.map do |program|
           Ellen::SyoboiCalendar::Program.new(
             count: program.Count,
             channel_id: program.ChID,
@@ -71,14 +81,23 @@ module Ellen
       end
 
       def get_programs
-        client.programs(program_options)
+        if items = client.programs(program_options).ProgLookupResponse.ProgItems
+          [items.ProgItem].flatten.compact
+        else
+          []
+        end
       end
 
       def program_options
         {
           played_from: played_from,
           played_to: played_to,
-        }
+          channel_id: channel_ids,
+        }.reject {|key, value| value.nil? }
+      end
+
+      def channel_ids
+        ENV["SYOBOI_CALENDAR_CHANNEL_IDS"]
       end
 
       def played_from
