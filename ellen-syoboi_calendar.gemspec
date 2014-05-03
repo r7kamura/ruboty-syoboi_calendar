@@ -1,7 +1,6 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'ellen/syoboi_calendar/version'
+require "ellen/syoboi_calendar/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "ellen-syoboi_calendar"
