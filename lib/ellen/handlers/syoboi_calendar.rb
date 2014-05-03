@@ -22,7 +22,7 @@ module Ellen
         else
           programs.sort_by(&:started_at).map do |program|
             count = " ##{program.count}" if program.count
-            %<#{program.started_at.strftime("%Y-%m-%d %H:%M")} #{program.title.name}#{count}>
+            %<#{program.started_at.strftime("%Y-%m-%d %H:%M")} #{program.title.name}#{count} (#{program.channel.name})>
           end.join("\n")
         end
       end

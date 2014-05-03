@@ -9,27 +9,53 @@ describe Ellen::Handlers::SyoboiCalendar do
     Ellen::Robot.new
   end
 
+  let(:dummy_channels_response) do
+    <<-EOS.strip_heredoc
+      <?xml version="1.0" encoding="UTF-8"?>
+      <ChLookupResponse>
+        <Result>
+          <Code>200</Code>
+          <Message>
+          </Message>
+        </Result>
+        <ChItems>
+          <ChItem id="3">
+            <ChComment>DummyComment</ChComment>
+            <ChEPGURL>http://example.com/epg-url</ChEPGURL>
+            <ChGID>1</ChGID>
+            <ChID>3</ChID>
+            <ChName>DummyChannelName</ChName>
+            <ChNumber>3</ChNumber>
+            <ChURL>http://example.com/</ChURL>
+            <ChiEPGName>DummyiEPGName</ChiEPGName>
+            <LastUpdate>2000-01-01 00:00:00</LastUpdate>
+          </ChItem>
+        </ChItems>
+      </ChLookupResponse>
+    EOS
+  end
+
   let(:dummy_programs_response) do
     <<-EOS.strip_heredoc
       <?xml version="1.0" encoding="UTF-8"?>
       <ProgLookupResponse>
         <ProgItems>
           <ProgItem id="1">
+            <ChID>3</ChID>
+            <Count>1</Count>
+            <Deleted>0</Deleted>
+            <EdTime>2000-01-01 00:00:00</EdTime>
+            <Flag>9</Flag>
             <LastUpdate>2000-01-01 00:00:00</LastUpdate>
             <PID>1</PID>
-            <TID>2</TID>
-            <StTime>2000-01-01 00:00:00</StTime>
-            <StOffset>0</StOffset>
-            <EdTime>2000-01-01 00:00:00</EdTime>
-            <Count>1</Count>
-            <SubTitle></SubTitle>
-            <ProgComment></ProgComment>
-            <Flag>9</Flag>
-            <Deleted>0</Deleted>
-            <Warn>1</Warn>
-            <ChID>3</ChID>
+            <ProgComment>DummyComment</ProgComment>
             <Revision>2</Revision>
-            <STSubTitle></STSubTitle>
+            <STSubTitle>DummySubTitle</STSubTitle>
+            <StOffset>0</StOffset>
+            <StTime>2000-01-01 00:00:00</StTime>
+            <SubTitle></SubTitle>
+            <TID>2</TID>
+            <Warn>1</Warn>
           </ProgItem>
         </ProgItems>
         <Result>
@@ -52,24 +78,24 @@ describe Ellen::Handlers::SyoboiCalendar do
         </Result>
         <TitleItems>
           <TitleItem id="2">
-            <TID>2</TID>
-            <LastUpdate>2000-01-01 00:00:00</LastUpdate>
-            <Title>DummyTitle</Title>
-            <ShortTitle></ShortTitle>
-            <TitleYomi>ダミータイトル</TitleYomi>
-            <TitleEN></TitleEN>
-            <Comment></Comment>
             <Cat>4</Cat>
-            <TitleFlag>0</TitleFlag>
-            <FirstYear>2000</FirstYear>
-            <FirstMonth>1</FirstMonth>
-            <FirstEndYear>2000</FirstEndYear>
-            <FirstEndMonth>1</FirstEndMonth>
+            <Comment>DummyComment</Comment>
             <FirstCh>DummyChannel</FirstCh>
-            <Keywords></Keywords>
+            <FirstEndMonth>1</FirstEndMonth>
+            <FirstEndYear>2000</FirstEndYear>
+            <FirstMonth>1</FirstMonth>
+            <FirstYear>2000</FirstYear>
+            <Keywords>DummyKeywords</Keywords>
+            <LastUpdate>2000-01-01 00:00:00</LastUpdate>
+            <ShortTitle>DummyShortTitle</ShortTitle>
+            <SubTitles>DummySubTitles</SubTitles>
+            <TID>2</TID>
+            <Title>DummyTitle</Title>
+            <TitleEN>DummyEnglishTitle</TitleEN>
+            <TitleFlag>0</TitleFlag>
+            <TitleYomi>ダミータイトル</TitleYomi>
             <UserPoint>6</UserPoint>
             <UserPointRank>1</UserPointRank>
-            <SubTitles></SubTitles>
           </TitleItem>
         </TitleItems>
       </TitleLookupResponse>
@@ -85,6 +111,8 @@ describe Ellen::Handlers::SyoboiCalendar do
           case env["QUERY_STRING"]
           when /ProgLookup/
             dummy_programs_response
+          when /ChLookup/
+            dummy_channels_response
           else
             dummy_titles_response
           end,
@@ -107,7 +135,7 @@ describe Ellen::Handlers::SyoboiCalendar do
     end
 
     it "replies today's anime list" do
-      Ellen.logger.should_receive(:info).with("2000-01-01 00:00 DummyTitle #1")
+      Ellen.logger.should_receive(:info).with("2000-01-01 00:00 DummyTitle #1 (DummyChannelName)")
       robot.receive(message)
     end
   end
