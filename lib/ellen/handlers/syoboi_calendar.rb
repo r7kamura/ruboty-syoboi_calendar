@@ -11,7 +11,7 @@ module Ellen
       env :SYOBOI_CALENDAR_CHANNEL_IDS, "Comma-separated channel IDs to filter programs", optional: true
 
       def list(message)
-        message.reply(description)
+        message.reply(description, code: true)
       end
 
       private
