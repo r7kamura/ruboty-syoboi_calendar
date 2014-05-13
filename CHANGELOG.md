@@ -1,3 +1,6 @@
+## 0.0.4
+* Format message if adapter supports :code option
+
 ## 0.0.3
 * Improve program count view
 * Show channel name on description
