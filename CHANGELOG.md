@@ -1,3 +1,6 @@
+## 0.0.5
+* Rename: Ellen -> Ruboty
+
 ## 0.0.4
 * Format message if adapter supports :code option
 
