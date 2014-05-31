@@ -3,7 +3,7 @@ require "active_support/core_ext/numeric/time"
 require "active_support/core_ext/date"
 require "active_support/core_ext/time"
 
-module Ellen
+module Ruboty
   module Handlers
     class SyoboiCalendar < Base
       on(/list anime\z/, name: "list", description: "List today's anime")

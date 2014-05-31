@@ -1,4 +1,4 @@
-require "ellen/syoboi_calendar"
+require "ruboty/syoboi_calendar"
 require "active_support/all"
 require "rack"
 require "webmock/rspec"

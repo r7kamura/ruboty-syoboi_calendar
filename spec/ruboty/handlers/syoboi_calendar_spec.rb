@@ -1,12 +1,12 @@
 require "spec_helper"
 
-describe Ellen::Handlers::SyoboiCalendar do
+describe Ruboty::Handlers::SyoboiCalendar do
   let(:instance) do
     described_class.new(robot)
   end
 
   let(:robot) do
-    Ellen::Robot.new
+    Ruboty::Robot.new
   end
 
   let(:dummy_channels_response) do
@@ -128,14 +128,14 @@ describe Ellen::Handlers::SyoboiCalendar do
 
     let(:message) do
       {
-        body: "@ellen list anime",
+        body: "@ruboty list anime",
         from: "test",
-        to: "ellen",
+        to: "ruboty",
       }
     end
 
     it "replies today's anime list" do
-      Ellen.logger.should_receive(:info).with("2000-01-01 00:00 DummyTitle #1 (DummyChannelName)")
+      Ruboty.logger.should_receive(:info).with("2000-01-01 00:00 DummyTitle #1 (DummyChannelName)")
       robot.receive(message)
     end
   end

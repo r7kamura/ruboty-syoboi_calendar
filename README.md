@@ -1,15 +1,15 @@
-# Ellen::SyoboiCalendar
+# Ruboty::SyoboiCalendar
 Ask today's Japanese anime line-up from [cal.syoboi.jp](http://cal.syoboi.jp/).
 
 ## Installation
 ```ruby
 # Gemfile
-gem "ellen-syoboi_calendar"
+gem "ruboty-syoboi_calendar"
 ```
 
 ## Usage
 ```
-@ellen list anime
+@ruboty list anime
 ```
 
 ## ENV
@@ -18,4 +18,4 @@ SYOBOI_CALENDAR_CHANNEL_IDS - Comma-separated channel IDs to filter programs
 ```
 
 ## Screenshot
-![](https://raw.githubusercontent.com/r7kamura/ellen-syoboi_calendar/master/images/screenshot.png)
+![](https://raw.githubusercontent.com/r7kamura/ruboty-syoboi_calendar/master/images/screenshot.png)

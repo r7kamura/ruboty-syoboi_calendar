@@ -1,14 +1,14 @@
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "ellen/syoboi_calendar/version"
+require "ruboty/syoboi_calendar/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "ellen-syoboi_calendar"
-  spec.version       = Ellen::SyoboiCalendar::VERSION
+  spec.name          = "ruboty-syoboi_calendar"
+  spec.version       = Ruboty::SyoboiCalendar::VERSION
   spec.authors       = ["Ryo Nakamura"]
   spec.email         = ["r7kamura@gmail.com"]
   spec.summary       = "Ask today's Japanese anime line-up from cal.syoboi.jp."
-  spec.homepage      = "https://github.com/r7kamura/ellen-syoboi_calendar"
+  spec.homepage      = "https://github.com/r7kamura/ruboty-syoboi_calendar"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "activesupport"
-  spec.add_dependency "ellen", ">= 0.2.0"
+  spec.add_dependency "ruboty", ">= 0.2.0"
   spec.add_dependency "syoboi_calendar", "0.3.1"
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "pry"
