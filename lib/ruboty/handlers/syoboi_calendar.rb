@@ -44,20 +44,16 @@ module Ruboty
         ENV["SYOBOI_CALENDAR_CHANNEL_IDS"]
       end
 
-      def now
-        @now ||= Time.now
-      end
-
       def played_from
-        now
+        Time.now
       end
 
       # 04:00 ~ 28:00
       def played_to
-        if now.hour >= 4
-          now.tomorrow.beginning_of_day + 4.hour
+        if Time.now.hour >= 4
+          Time.now.tomorrow.beginning_of_day + 4.hour
         else
-          now.beginning_of_day + 4.hour
+          Time.now.beginning_of_day + 4.hour
         end
       end
     end
