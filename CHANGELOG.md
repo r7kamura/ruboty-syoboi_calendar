@@ -1,3 +1,6 @@
+## 0.0.6
+* Fix bug that would memoize Time.now unexpectedly
+
 ## 0.0.5
 * Rename: Ellen -> Ruboty
 
