@@ -28,7 +28,7 @@ module Ruboty
       end
 
       def programs
-        @programs ||= ::SyoboiCalendar::Client.new.programs(program_options)
+        ::SyoboiCalendar::Client.new.programs(program_options)
       end
 
       def program_options
