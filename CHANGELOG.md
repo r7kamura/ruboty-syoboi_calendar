@@ -1,3 +1,6 @@
+## 0.0.7
+* Fix bug that would memoize programs unexpectedly
+
 ## 0.0.6
 * Fix bug that would memoize Time.now unexpectedly
 
