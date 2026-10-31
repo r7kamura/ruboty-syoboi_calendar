@@ -18,4 +18,4 @@ SYOBOI_CALENDAR_CHANNEL_IDS - Comma-separated channel IDs to filter programs
 ```
 
 ## Screenshot
-![](https://raw.githubusercontent.com/r7kamura/ruboty-syoboi_calendar/master/images/screenshot.png)
+![](https://raw.githubusercontent.com/r7kamura/ruboty-syoboi_calendar/main/images/screenshot.png)
