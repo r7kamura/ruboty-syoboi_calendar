@@ -135,8 +135,7 @@ describe Ruboty::Handlers::SyoboiCalendar do
     end
 
     it "replies today's anime list" do
-      Ruboty.logger.should_receive(:info).with("2000-01-01 00:00 DummyTitle #1 (DummyChannelName)")
-      robot.receive(message)
+      expect { robot.receive(message) }.to output("2000-01-01 00:00 DummyTitle #1 (DummyChannelName)\n").to_stdout
     end
   end
 end
